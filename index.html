@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>PixelPlay — Modern Photobooth Platform & Dashboard</title>
+<title>PixelPlay — Platform Photobooth Modern</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -15,12 +15,11 @@
     --ink: #1E221F;
     --ink-muted: #646965;
     --border: #E0D7C6;
-    --wood-front: #DEC29B;
-    --wood-side: #C6A375;
-    --wood-inside: #EAD4B4;
-    --wood-floor: #CDB08A;
-    --curtain-main: #6E3838;
-    --curtain-dark: #4F2525;
+    --wood-light: #E2C8A4;
+    --wood-mid: #CCA87B;
+    --wood-dark: #AE8859;
+    --curtain-main: #6B4235;
+    --curtain-dark: #4E2E24;
     --pastel-sage: #D8E8D5;
     --pastel-butter: #F9EBC2;
     --pastel-peach: #F7D9CE;
@@ -71,15 +70,15 @@
     z-index: 1000;
   }
 
-  /* Navigasi */
+  /* Navigasi dengan Logo Gambar */
   .nav {
     position: sticky;
     top: 1rem;
     z-index: 100;
     max-width: 1180px;
     margin: 0 auto;
-    padding: 0.8rem 1.75rem;
-    background: rgba(250, 246, 240, 0.88);
+    padding: 0.75rem 1.75rem;
+    background: rgba(250, 246, 240, 0.9);
     backdrop-filter: blur(12px);
     border: 1.5px solid rgba(30, 34, 31, 0.12);
     border-radius: 999px;
@@ -88,14 +87,20 @@
     align-items: center;
   }
   .logo {
-    font-family: 'Bricolage Grotesque', sans-serif;
-    font-weight: 800;
-    font-size: 1.35rem;
-    color: var(--ink);
-    text-decoration: none;
     display: inline-flex;
     align-items: center;
     gap: 10px;
+    text-decoration: none;
+    color: var(--ink);
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-weight: 800;
+    font-size: 1.3rem;
+  }
+  .logo img {
+    height: 36px;
+    width: auto;
+    display: block;
+    object-fit: contain;
   }
   .nav nav {
     display: flex;
@@ -122,7 +127,7 @@
     font-family: 'DM Sans', sans-serif;
     font-weight: 600;
     font-size: 0.94rem;
-    padding: 0.72rem 1.4rem;
+    padding: 0.75rem 1.45rem;
     border-radius: 999px;
     text-decoration: none;
     border: 2px solid var(--ink);
@@ -141,8 +146,8 @@
     transform: translateY(-2px);
   }
   .btn-sm {
-    padding: 0.48rem 1.1rem;
-    font-size: 0.84rem;
+    padding: 0.5rem 1.15rem;
+    font-size: 0.85rem;
   }
   .btn-ghost {
     background: transparent;
@@ -156,14 +161,14 @@
 
   /* HERO */
   .hero {
-    max-width: 1220px;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 3rem 2rem 5rem;
     display: grid;
     grid-template-columns: 0.95fr 1.05fr;
     gap: 2.5rem;
     align-items: center;
-    min-height: 85vh;
+    min-height: 83vh;
   }
   .badge-pill {
     display: inline-flex;
@@ -202,17 +207,15 @@
   }
 
   /* =================================================================
-     TRUE 3D VOLUMETRIC PHOTOBOX (DENGAN KEDALAMAN RUANG Z-AXIS NYATA)
+     KABIN PHOTOBOOTH RAPIH & REALISTIS (SESUAI FOTO REFERENSI)
      ================================================================= */
-  .scene-3d-viewport {
-    perspective: 1200px;
+  .booth-showcase-wrap {
+    perspective: 1400px;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
     position: relative;
-    padding: 2rem 0;
-    user-select: none;
+    padding: 1.5rem 0;
   }
 
   .pastel-glow {
@@ -224,341 +227,307 @@
     z-index: 0;
   }
 
-  /* Rig 3D Utama: Lebar 380, Tinggi 420, Kedalaman 200 (-100px s/d +100px) */
-  .booth-rig-3d {
-    width: 380px;
-    height: 420px;
+  .photobooth-unit {
+    width: 430px;
+    height: 450px;
     position: relative;
     transform-style: preserve-3d;
-    transform: rotateX(-10deg) rotateY(-28deg);
-    transition: transform 0.18s ease-out;
+    transform: rotateX(2deg) rotateY(-8deg);
+    transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
     z-index: 2;
-    cursor: grab;
-  }
-  .booth-rig-3d:active {
-    cursor: grabbing;
+    cursor: pointer;
+    filter: drop-shadow(0 28px 40px rgba(30, 34, 31, 0.14));
   }
 
-  .face-3d {
-    position: absolute;
-    transform-style: preserve-3d;
-    backface-visibility: visible;
-  }
-
-  /* 1. LANTAI BAWAH 3D (380x200) */
-  .booth-floor-3d {
-    width: 380px;
-    height: 200px;
-    bottom: 0;
-    left: 0;
-    background: repeating-linear-gradient(
-      90deg,
-      #CDB08A 0px,
-      #CDB08A 24px,
-      #C0A077 24px,
-      #C0A077 26px
-    );
-    border: 3px solid var(--ink);
-    border-radius: 12px 36px 36px 12px;
-    transform: rotateX(90deg) translateZ(-100px);
-    box-shadow: 0 30px 60px rgba(30, 34, 31, 0.25);
-  }
-
-  /* 2. ATAP KANOPY & SIGNBOARD MELENGKUNG ATAS 3D (380x200) */
-  .booth-ceiling-3d {
-    width: 380px;
-    height: 200px;
-    top: 38px;
-    left: 0;
-    background: #E5CCB0;
-    border: 3px solid var(--ink);
-    border-radius: 12px 36px 36px 12px;
-    transform: rotateX(90deg) translateZ(100px);
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    padding-right: 45px;
-  }
-  /* Lampu Plafon Bulat Menyala di Langit-Langit Kabin */
-  .ceiling-ring-lamp {
-    width: 105px;
-    height: 105px;
-    border-radius: 50%;
-    background: #FFFFFF;
-    border: 3px solid var(--ink);
-    box-shadow: 0 0 40px 12px rgba(255, 244, 185, 0.95);
-  }
-
-  /* Fascia Signboard PHOTOBOOTH Depan & Samping */
-  .crown-front-3d {
-    width: 380px;
-    height: 44px;
-    top: 0;
-    left: 0;
-    background: #FFFFFF;
+  /* 1. Kanopi Melengkung Atas (PHOTOBOOTH Signboard) */
+  .unit-top-canopy {
+    position: relative;
+    height: 54px;
+    background: linear-gradient(90deg, #FFFFFF 0%, #F7F5F0 78%, #E5E0D5 100%);
     border: 2.5px solid var(--ink);
-    border-radius: 14px 28px 0 0;
-    transform: translateZ(100px);
+    border-radius: 12px 56px 14px 0;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 1.25rem;
-    box-shadow: inset 0 -4px 0 #EAE6DF;
+    padding: 0 1.4rem;
+    z-index: 8;
+    box-shadow: inset 0 -5px 0 #E6E1D6;
   }
-  .crown-front-3d strong {
+  .canopy-title {
     font-family: 'Bricolage Grotesque', sans-serif;
-    font-size: 1.15rem;
-    letter-spacing: 3px;
     font-weight: 800;
+    font-size: 1.35rem;
+    letter-spacing: 3.5px;
+    color: #3A3835;
   }
-  .crown-front-3d span {
-    font-family: 'Bricolage Grotesque', sans-serif;
-    font-size: 0.7rem;
-    font-weight: 800;
+  .canopy-logo {
+    height: 26px;
+    width: auto;
+    object-fit: contain;
+  }
+
+  /* 2. Badan Utama Kabin */
+  .unit-main-body {
+    position: relative;
+    height: 374px;
+    background: #DFC6A4;
+    border-inline: 2.5px solid var(--ink);
+    border-radius: 0 42px 42px 0;
+    overflow: hidden;
+  }
+
+  /* Plafon Kayu Dalam & Ring Light Bulat Besar */
+  .cabin-inner-ceiling {
+    position: absolute;
+    top: 0;
+    left: 140px;
+    right: 0;
+    height: 58px;
+    background: linear-gradient(180deg, #BA9668 0%, #D2B288 100%);
+    border-bottom: 2px solid var(--ink);
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .ceiling-oval-light {
+    width: 125px;
+    height: 28px;
+    border-radius: 50%;
+    background: #FFFFFF;
+    border: 2px solid var(--ink);
+    box-shadow: 0 6px 28px 8px rgba(255, 248, 210, 0.95);
+  }
+
+  /* Ruang Dalam Kabin (Tempat Pengunjung Berfoto dari Samping) */
+  .cabin-inner-room {
+    position: absolute;
+    top: 58px;
+    bottom: 48px;
+    left: 140px;
+    right: 0;
+    background: linear-gradient(90deg, #F5EFE6 0%, #EAE0D0 100%);
+    z-index: 1;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding: 0 18px 0 36px;
+  }
+
+  /* Tirai Belakang Kabin (Seperti di Foto Referensi 1) */
+  .back-corner-drape {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 55px;
+    width: 58px;
+    background: repeating-linear-gradient(
+      90deg,
+      #5B372B 0px,
+      #5B372B 9px,
+      #43261D 9px,
+      #43261D 18px
+    );
+    border-inline: 2px solid var(--ink);
+    opacity: 0.9;
+    z-index: 0;
+  }
+
+  /* Unit Kamera & Layar Sentuh di Dinding Dalam Kiri (Menghadap Pengunjung) */
+  .inner-wall-camera {
+    position: relative;
+    z-index: 2;
+    margin-bottom: 52px;
+    margin-left: -12px;
+    width: 36px;
+    height: 138px;
+    background: #232724;
+    border: 2px solid var(--ink);
+    border-radius: 0 10px 10px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: space-evenly;
+    padding: 6px 4px;
+  }
+  .inner-lens {
+    width: 16px;
+    height: 20px;
+    background: #5EEAD4;
+    border: 2px solid var(--ink);
+    border-radius: 4px;
+    margin-right: -6px;
+    box-shadow: 0 0 12px rgba(94, 234, 212, 0.85);
+  }
+  .inner-monitor {
+    width: 22px;
+    height: 48px;
     background: var(--pastel-butter);
     border: 1.5px solid var(--ink);
-    padding: 2px 8px;
-    border-radius: 99px;
-  }
-
-  /* Signboard Samping Kanan 3D */
-  .crown-right-3d {
-    width: 200px;
-    height: 44px;
-    top: 0;
-    right: -100px;
-    background: #F5F2EB;
-    border: 2.5px solid var(--ink);
-    transform: rotateY(90deg) translateZ(100px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Bricolage Grotesque', sans-serif;
-    font-weight: 800;
-    letter-spacing: 2px;
-    font-size: 0.95rem;
-  }
-
-  /* 3. DINDING BELAKANG PENUH 3D (Z = -100px) */
-  .booth-back-wall-3d {
-    width: 380px;
-    height: 376px;
-    top: 44px;
-    left: 0;
-    background: linear-gradient(180deg, #E2C69F 0%, #CFAF82 100%);
-    border: 2.5px solid var(--ink);
-    transform: translateZ(-100px);
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    padding-right: 34px;
-  }
-  /* Poster Hasil Foto Tertempel di Dinding Belakang Kabin */
-  .back-wall-decor {
-    background: rgba(255, 255, 255, 0.75);
-    border: 2px solid var(--ink);
-    border-radius: 10px;
-    padding: 6px;
-    display: flex;
-    gap: 6px;
-    transform: translateZ(4px);
-  }
-  .back-wall-decor img {
-    width: 32px;
-    height: 85px;
-    object-fit: cover;
     border-radius: 3px;
-    border: 1px solid var(--ink);
   }
 
-  /* 4. DINDING SAMPING KIRI MESIN 3D (X = 0, Lebar 200px) */
-  .booth-left-wall-3d {
-    width: 200px;
-    height: 376px;
-    top: 44px;
-    left: -100px;
-    background: var(--wood-side);
-    border: 2.5px solid var(--ink);
-    transform: rotateY(-90deg) translateZ(100px);
-    background-image: repeating-linear-gradient(
-      90deg,
-      rgba(90, 58, 24, 0.14) 0px,
-      rgba(90, 58, 24, 0.14) 6px,
-      transparent 6px,
-      transparent 14px
-    );
-  }
-
-  /* 5. DINDING SEKAT TENGAH TEMPAT KAMERA & LAYAR TOUCHSCREEN (X = 165px)
-        Menghadap ke arah dalam Kabin Kanan! */
-  .partition-camera-wall-3d {
-    width: 200px;
-    height: 376px;
-    top: 44px;
-    left: 65px;
-    background: #D5B58B;
-    border: 2.5px solid var(--ink);
-    transform: rotateY(90deg);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    padding: 16px;
-  }
-  /* Kamera Lensa & Ringlight di Dinding Dalam Menghadap Pengunjung */
-  .inside-camera-housing {
-    width: 54px;
-    height: 54px;
-    border-radius: 50%;
-    background: #FFFFFF;
-    border: 3px solid var(--ink);
-    box-shadow: 0 0 16px rgba(255,255,255,0.9);
-    display: grid;
-    place-items: center;
-    transform: translateZ(6px);
-  }
-  .inside-camera-lens {
-    width: 26px;
-    height: 26px;
-    border-radius: 50%;
-    background: radial-gradient(circle at 35% 35%, #5EEAD4, #0F172A);
-    border: 2px solid var(--ink);
-  }
-  /* Layar Sentuh Live Preview di Dinding Dalam Kabin */
-  .inside-touchscreen {
-    width: 110px;
-    height: 135px;
-    background: #1E221F;
-    border: 3px solid var(--ink);
-    border-radius: 12px;
-    padding: 6px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    transform: translateZ(6px);
-    box-shadow: 0 6px 16px rgba(0,0,0,0.2);
-  }
-  .inside-screen-feed {
-    width: 100%;
-    height: 92px;
-    background: var(--pastel-butter);
-    border-radius: 6px;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-  }
-  .inside-screen-status {
-    font-family: 'Bricolage Grotesque', sans-serif;
-    font-size: 0.58rem;
-    font-weight: 800;
-    color: #5EEAD4;
-    letter-spacing: 1px;
-  }
-
-  /* 6. DINDING DEPAN KIRI (PANEL KAYU SLATTED + CERMIN LED + SLOT CETAK FOTO) (Z = +100px) */
-  .front-wood-pillar-3d {
+  /* Sorot Cahaya Kamera Saat Tirai Terbuka */
+  .inner-flash-beam {
+    position: absolute;
+    left: 54px;
+    top: 40px;
     width: 170px;
-    height: 376px;
-    top: 44px;
-    left: 0;
-    background: linear-gradient(135deg, #E5CAA4 0%, #CFAF82 100%);
-    border: 2.5px solid var(--ink);
-    transform: translateZ(100px);
-    padding: 14px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
+    height: 140px;
+    background: linear-gradient(90deg, rgba(255,255,255,0.78) 0%, rgba(253, 240, 194, 0.25) 65%, transparent 100%);
+    clip-path: polygon(0 36%, 100% 0, 100% 100%, 0 64%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+    z-index: 2;
   }
-  .front-fluted-slats {
+  .photobooth-unit:hover .inner-flash-beam,
+  .photobooth-unit.open .inner-flash-beam {
+    opacity: 1;
+  }
+
+  /* Karakter Sedang Berfoto Tampak Samping di Dalam Kabin */
+  .inner-guests-svg {
+    position: relative;
+    z-index: 2;
+    width: 155px;
+    height: 225px;
+    margin-bottom: -4px;
+    transform: translateX(6px);
+    transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .photobooth-unit:hover .inner-guests-svg,
+  .photobooth-unit.open .inner-guests-svg {
+    transform: translateX(-4px) scale(1.02);
+  }
+
+  /* Lantai Kayu Kabin */
+  .cabin-inner-floor {
+    position: absolute;
+    bottom: 0;
+    left: 130px;
+    right: 0;
+    height: 48px;
+    background: linear-gradient(180deg, #D5BC9B 0%, #E7D4B9 100%);
+    border-top: 2px solid var(--ink);
+    z-index: 1;
+  }
+
+  /* Dinding Depan Kayu dengan Potongan Miring Diagonal (Persis Foto Referensi 1) */
+  .front-angled-wood {
     position: absolute;
     inset: 0 auto 0 0;
-    width: 44px;
+    width: 235px;
+    background: linear-gradient(135deg, #E5CCA8 0%, #CFAF82 100%);
+    clip-path: polygon(0 0, 100% 0, 72% 100%, 0 100%);
+    z-index: 5;
+    padding: 16px 18px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  /* Garis Miring Tepi Dinding Kayu */
+  .angled-wood-border {
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 237px;
+    background: var(--ink);
+    clip-path: polygon(0 0, 100% 0, 72% 100%, 0 100%);
+    z-index: 4;
+  }
+
+  /* Kisi-kisi Kayu Vertikal (Fluted Slats) di Kiri */
+  .fluted-wood-slats {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 12px;
+    width: 96px;
     background: repeating-linear-gradient(
       90deg,
-      rgba(105, 68, 30, 0.16) 0px,
-      rgba(105, 68, 30, 0.16) 4px,
-      transparent 4px,
-      transparent 10px
+      rgba(255, 250, 240, 0.45) 0px,
+      rgba(255, 250, 240, 0.45) 6px,
+      rgba(115, 78, 38, 0.22) 6px,
+      rgba(115, 78, 38, 0.22) 11px
     );
     pointer-events: none;
   }
-  /* Cermin LED / Poster Showcase di Dinding Depan */
-  .front-led-mirror {
+
+  /* Cermin / Layar Showcase Panjang Berlampu LED Hangat */
+  .front-mirror-window {
     position: relative;
     z-index: 2;
-    width: 114px;
-    height: 215px;
-    background: #202422;
+    width: 112px;
+    height: 232px;
+    margin-left: 4px;
+    background: linear-gradient(160deg, #2B302E 0%, #181B1A 100%);
     border: 2.5px solid var(--ink);
     border-radius: 12px;
-    box-shadow: 0 0 20px rgba(255, 241, 186, 0.9);
+    box-shadow: 0 0 22px rgba(255, 242, 190, 0.95);
     padding: 8px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    transform: translateZ(4px);
   }
-  .front-led-mirror strong {
+  .mirror-top-tag {
     font-family: 'Bricolage Grotesque', sans-serif;
-    font-size: 0.7rem;
-    color: var(--pastel-butter);
+    font-weight: 800;
+    font-size: 0.68rem;
     letter-spacing: 1px;
+    color: var(--pastel-butter);
   }
-  .mirror-duo-cards {
+  .mirror-cards-pair {
     display: flex;
     gap: 6px;
+    align-items: center;
   }
-  .mirror-duo-cards img {
+  .mirror-cards-pair img {
     width: 38px;
-    height: 112px;
+    height: 122px;
     object-fit: cover;
     border-radius: 3px;
-    border: 1px solid rgba(255,255,255,0.5);
+    border: 1px solid rgba(255,255,255,0.45);
   }
-  .mirror-duo-cards img:first-child { transform: rotate(-4deg); }
-  .mirror-duo-cards img:last-child { transform: rotate(4deg); }
-  .front-led-mirror small {
-    font-size: 0.55rem;
-    color: var(--pastel-sage);
+  .mirror-cards-pair img:first-child { transform: rotate(-4deg); }
+  .mirror-cards-pair img:last-child { transform: rotate(4deg); }
+  .mirror-bottom-tag {
+    font-size: 0.54rem;
     font-weight: 700;
+    color: var(--pastel-sage);
+    letter-spacing: 0.6px;
   }
 
-  /* Slot Cetak Foto di Bawah Cermin Depan */
-  .front-print-box {
+  /* Dispenser Tempat Foto Keluar di Bawah Cermin */
+  .front-dispenser-slot {
     position: relative;
     z-index: 2;
-    width: 114px;
-    background: #BD996B;
+    width: 112px;
+    margin-left: 4px;
+    background: #C19D70;
     border: 2px solid var(--ink);
     border-radius: 10px;
-    padding: 7px;
+    padding: 7px 8px 9px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    transform: translateZ(5px);
   }
-  .front-print-box span {
+  .front-dispenser-slot small {
     font-size: 0.52rem;
     font-weight: 800;
-    letter-spacing: 0.6px;
+    letter-spacing: 0.5px;
     margin-bottom: 4px;
   }
-  .slot-opening {
+  .slot-dark-mouth {
     width: 82px;
     height: 7px;
     background: var(--ink);
     border-radius: 99px;
   }
-  .slot-strip-out {
+  .dispensed-strip-card {
     position: absolute;
-    top: 21px;
-    width: 50px;
+    top: 20px;
+    width: 48px;
     background: #fff;
     padding: 2px;
     border: 1.5px solid var(--ink);
@@ -568,58 +537,34 @@
     opacity: 0;
     transition: all 0.55s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
-  .booth-rig-3d:hover .slot-strip-out,
-  .booth-rig-3d.open .slot-strip-out {
-    transform: translateY(5px) rotate(-4deg) scale(1);
+  .photobooth-unit:hover .dispensed-strip-card,
+  .photobooth-unit.open .dispensed-strip-card {
+    transform: translateY(4px) rotate(-4deg) scale(1);
     opacity: 1;
   }
-  .slot-strip-out img {
+  .dispensed-strip-card img {
     width: 100%;
     display: block;
   }
 
-  /* 7. KARAKTER 3D DI DALAM KABIN (BERDIRI DI TENGAH RUANG Z = 0px)
-        Menghadap ke Dinding Sekat Kamera Kiri! */
-  .cabin-guests-plane-3d {
-    width: 185px;
-    height: 290px;
-    bottom: 12px;
-    right: 12px;
-    transform: translateZ(0px);
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    pointer-events: none;
-  }
-  /* Bangku Stool 3D di Dalam Kabin */
-  .cabin-guests-svg {
-    width: 175px;
-    height: 265px;
-    filter: drop-shadow(-6px 8px 0px rgba(30,34,31,0.12));
-    transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
-  }
-  .booth-rig-3d:hover .cabin-guests-svg,
-  .booth-rig-3d.open .cabin-guests-svg {
-    transform: translateX(-6px) scale(1.03);
-  }
-
-  /* 8. TIRAI 3D DEPAN & SAMPING (Z = +98px) */
-  .curtain-front-3d {
-    width: 210px;
-    height: 366px;
-    top: 48px;
+  /* TIRAI KANAN BERGELOMBANG MELENGKUNG (BISA DIBUKA-TUTUP) */
+  .front-curtain-wrap {
+    position: absolute;
+    top: 0;
+    bottom: 10px;
+    left: 168px;
     right: 0;
-    transform: translateZ(98px);
-    overflow: hidden;
+    z-index: 6;
     pointer-events: none;
+    overflow: hidden;
+    border-radius: 0 0 38px 0;
   }
-  .curtain-rail-bar {
-    width: 100%;
+  .curtain-track-rod {
     height: 10px;
-    background: #D4CFC7;
+    background: #CFCAC0;
     border-bottom: 2px solid var(--ink);
   }
-  .curtain-drape-sheet {
+  .curtain-pleated-fabric {
     width: 100%;
     height: calc(100% - 10px);
     background: repeating-linear-gradient(
@@ -630,60 +575,27 @@
       var(--curtain-dark) 26px
     );
     border-left: 2.5px solid var(--ink);
-    border-right: 2.5px solid var(--ink);
+    border-bottom: 2.5px solid var(--ink);
+    border-radius: 0 0 36px 8px;
     transform-origin: top right;
     transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1), border-radius 0.5s;
-    box-shadow: -10px 0 24px rgba(0,0,0,0.22);
+    box-shadow: -8px 0 22px rgba(30, 34, 31, 0.2);
   }
-  .booth-rig-3d:hover .curtain-drape-sheet,
-  .booth-rig-3d.open .curtain-drape-sheet {
-    transform: translateX(74%) scaleX(0.3) skewX(-6deg);
-    border-radius: 0 0 0 42px;
+  /* Saat kursor diarahkan atau diklik: tirai bergeser rapi ke sisi kanan */
+  .photobooth-unit:hover .curtain-pleated-fabric,
+  .photobooth-unit.open .curtain-pleated-fabric {
+    transform: translateX(68%) scaleX(0.34);
+    border-radius: 0 0 36px 28px;
   }
 
-  /* Tirai Penutup Sisi Samping Kanan 3D (X = 380px) */
-  .curtain-side-right-3d {
-    width: 200px;
-    height: 366px;
-    top: 48px;
-    right: -100px;
-    background: repeating-linear-gradient(
-      90deg,
-      var(--curtain-dark) 0px,
-      var(--curtain-dark) 16px,
-      #3D1B1B 16px,
-      #3D1B1B 30px
-    );
+  /* 3. Alas Bawah Melengkung (Base Plinth) */
+  .unit-bottom-base {
+    position: relative;
+    height: 22px;
+    background: linear-gradient(90deg, #C6C1B8 0%, #B2ADA3 100%);
     border: 2.5px solid var(--ink);
-    transform: rotateY(90deg) translateZ(100px);
-  }
-
-  /* Kontrol Rotasi Kamera 3D Interaktif */
-  .booth-3d-toolbar {
-    margin-top: 1.5rem;
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-    background: var(--surface);
-    border: 2px solid var(--ink);
-    box-shadow: 0 4px 0 var(--ink);
-    padding: 0.45rem 0.9rem;
-    border-radius: 999px;
-    z-index: 4;
-  }
-  .angle-btn {
-    background: var(--bg);
-    border: 1.5px solid var(--ink);
-    padding: 0.3rem 0.75rem;
-    border-radius: 999px;
-    font-family: 'Bricolage Grotesque', sans-serif;
-    font-size: 0.76rem;
-    font-weight: 700;
-    cursor: pointer;
-    transition: background 0.2s;
-  }
-  .angle-btn.active, .angle-btn:hover {
-    background: var(--pastel-butter);
+    border-radius: 6px 14px 52px 8px;
+    z-index: 8;
   }
 
   /* MARQUEE */
@@ -746,7 +658,7 @@
   }
 
   /* =================================================================
-     5 SKENARIO ANIMASI ALUR INTERAKTIF (PINTU, TIRAI, QRIS, POSE, PEGANG FOTO)
+     5 SKENARIO ANIMASI ALUR INTERAKTIF
      ================================================================= */
   .tuku-journey-section {
     background: var(--bg-alt);
@@ -762,7 +674,6 @@
     margin-bottom: 2rem;
   }
 
-  /* Header Bar Teater */
   .theater-topbar {
     background: var(--pastel-butter);
     border-bottom: 2px solid var(--ink);
@@ -786,7 +697,6 @@
     color: var(--ink);
   }
 
-  /* Canvas Adegan Animasi */
   .theater-viewport {
     position: relative;
     height: 360px;
@@ -811,7 +721,6 @@
     transform: translateY(0);
   }
 
-  /* --- ADEGAN 1: PINTU STUDIO TERBUKA & TAMU MASUK --- */
   .door-frame-svg {
     width: 100%;
     height: 100%;
@@ -832,7 +741,6 @@
     transform: translateX(65px);
   }
 
-  /* --- ADEGAN 2: BUKA TIRAI BOOTH & BENAR-BENAR MASUK KE DALAM --- */
   .curtain-slide-actor {
     transform-origin: 480px 60px;
     transition: transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
@@ -848,7 +756,6 @@
     transform: translateX(45px);
   }
 
-  /* --- ADEGAN 3: PILIH FRAME & POPUP QR CODE QRIS MUNCUL + SCAN HP --- */
   .qris-popup-modal {
     transform: scale(0);
     transform-origin: 310px 145px;
@@ -874,7 +781,6 @@
     transform: translateY(0);
   }
 
-  /* --- ADEGAN 4: POSE BERGAYA DI DEPAN KAMERA + WAJAH MUNCUL LIVE DI LAYAR --- */
   .pose-arm-anim {
     transform-origin: 455px 175px;
     animation: peacePoseWave 1.4s ease-in-out infinite alternate;
@@ -892,7 +798,6 @@
     80% { opacity: 1; transform: scale(1.25); }
   }
 
-  /* --- ADEGAN 5: FOTO BENAR-BENAR KELUAR DARI SLOT & DIPEGANG TANGAN ORANGNYA --- */
   .sliding-strip-paper {
     transform: translateY(-55px);
     transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.15s;
@@ -1104,6 +1009,14 @@
     border-top: 1.5px solid var(--border);
     color: var(--ink-muted);
     font-size: 0.9rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .footer img {
+    height: 28px;
+    width: auto;
   }
 
   @media (max-width: 960px) {
@@ -1126,8 +1039,8 @@
     .stats {
       grid-template-columns: 1fr;
     }
-    .booth-rig-3d {
-      transform: scale(0.85) rotateX(-10deg) rotateY(-25deg);
+    .photobooth-unit {
+      transform: scale(0.85);
     }
   }
 </style>
@@ -1139,15 +1052,10 @@
 
 <header class="nav">
   <a class="logo" href="#top">
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
-      <rect x="3" y="5" width="18" height="14" rx="3" fill="#F9EBC2"/>
-      <circle cx="12" cy="12" r="3.5" fill="#D8E8D5"/>
-      <circle cx="17.5" cy="8.5" r="1" fill="currentColor"/>
-    </svg>
-    PixelPlay
+    <img src="images/logo-pixelplay-DEQy3wVM.png" alt="PixelPlay Logo">
   </a>
   <nav>
-    <a href="#alur">Simulasi Alur</a>
+    <a href="#alur">Cara Kerja</a>
     <a href="#fitur">Fitur</a>
     <a href="#hasil">Hasil Foto</a>
     <a class="btn btn-sm" href="#kontak">Minta Demo</a>
@@ -1155,146 +1063,124 @@
 </header>
 
 <main id="top">
-  <!-- HERO SECTION DENGAN TRUE 3D VOLUMETRIC PHOTOBOX -->
+  <!-- HERO SECTION -->
   <section class="hero">
     <div class="hero-text">
       <div class="badge-pill">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
           <polygon points="12 2 15 8.5 22 9.3 17 14 18.5 21 12 17.5 5.5 21 7 14 2 9.3 9 8.5 12 2"/>
         </svg>
-        True 3D Interactive Photobox
+        Sistem Photobooth Terintegrasi
       </div>
       <h1>Cekrek. Cetak. Bagikan.</h1>
       <p class="lead">Platform photobooth modern dengan integrasi pembayaran QRIS otomatis, pengiriman QR instan, dan dashboard terpusat untuk semua cabang booth Anda.</p>
       <div class="actions">
-        <button class="btn" id="heroToggleCurtainBtn" type="button">
+        <button class="btn" id="heroSnapBtn" type="button">
           <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
             <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
             <circle cx="12" cy="13" r="4"/>
           </svg>
-          Buka Tirai 3D & Cekrek
+          Coba Simulasi Foto
         </button>
-        <a class="btn btn-ghost" href="#alur">Lihat Animasi 5 Tahap</a>
+        <a class="btn btn-ghost" href="#alur">Lihat Cara Kerja</a>
       </div>
     </div>
 
-    <!-- PANGGUNG VOLUMETRIC 3D -->
-    <div class="scene-3d-viewport" id="viewport3d">
+    <!-- UNIT PHOTOBOOTH RAPIH & PROPORSIONAL (SESUAI FOTO REFERENSI) -->
+    <div class="booth-showcase-wrap" id="boothStage">
       <div class="pastel-glow"></div>
 
-      <div class="booth-rig-3d" id="boothRig3d">
-        <!-- 1. Lantai Kayu 3D -->
-        <div class="face-3d booth-floor-3d"></div>
-
-        <!-- 2. Plafon & Lampu Ringlight Atas 3D -->
-        <div class="face-3d booth-ceiling-3d">
-          <div class="ceiling-ring-lamp"></div>
+      <div class="photobooth-unit" id="photoboothUnit">
+        <!-- 1. Kanopi Melengkung Atas -->
+        <div class="unit-top-canopy">
+          <span class="canopy-title">PHOTOBOOTH</span>
+          <img src="images/logo-pixelplay-DEQy3wVM.png" alt="PixelPlay" class="canopy-logo">
         </div>
 
-        <!-- Signboard Atas Depan & Samping 3D -->
-        <div class="face-3d crown-front-3d">
-          <strong>PHOTOBOOTH</strong>
-          <span>PIXELPLAY 3D</span>
-        </div>
-        <div class="face-3d crown-right-3d">PHOTOBOOTH</div>
-
-        <!-- 3. Dinding Belakang Penuh 3D -->
-        <div class="face-3d booth-back-wall-3d">
-          <div class="back-wall-decor">
-            <img src="images/photocard1.png" alt="Strip 1">
-            <img src="images/photocard2.png" alt="Strip 2">
+        <!-- 2. Badan Utama Kabin -->
+        <div class="unit-main-body">
+          <!-- Plafon Kayu & Lampu Bulat Dalam Kabin -->
+          <div class="cabin-inner-ceiling">
+            <div class="ceiling-oval-light"></div>
           </div>
-        </div>
 
-        <!-- 4. Dinding Samping Kiri Luar 3D -->
-        <div class="face-3d booth-left-wall-3d"></div>
+          <!-- Ruang Interior Dalam (Tampak Samping Saat Tirai Terbuka) -->
+          <div class="cabin-inner-room">
+            <div class="back-corner-drape"></div>
 
-        <!-- 5. Dinding Sekat Tengah (Kamera & Layar Menghadap Dalam Kabin) -->
-        <div class="face-3d partition-camera-wall-3d">
-          <div class="inside-camera-housing">
-            <div class="inside-camera-lens"></div>
-          </div>
-          <div class="inside-touchscreen">
-            <div class="inside-screen-feed">
-              <!-- Live Wajah Pengunjung di Layar Dalam -->
-              <svg width="70" height="70" viewBox="0 0 80 80" fill="none">
-                <circle cx="28" cy="36" r="12" fill="#FADCD2" stroke="#1E221F" stroke-width="2"/>
-                <circle cx="52" cy="40" r="12" fill="#FADCD2" stroke="#1E221F" stroke-width="2"/>
-                <path d="M16 68C16 54 40 54 40 68" fill="#D8E8D5" stroke="#1E221F" stroke-width="2"/>
-                <path d="M40 68C40 56 64 56 64 68" fill="#F7D9CE" stroke="#1E221F" stroke-width="2"/>
-              </svg>
+            <!-- Kamera & Layar di Dinding Dalam Kiri -->
+            <div class="inner-wall-camera">
+              <div class="inner-lens"></div>
+              <div class="inner-monitor"></div>
             </div>
-            <span class="inside-screen-status">LIVE VIEW • 3 POSES</span>
-          </div>
-        </div>
 
-        <!-- 6. Dinding Depan Kiri (Kisi Kayu + Cermin LED + Dispenser Foto) -->
-        <div class="face-3d front-wood-pillar-3d">
-          <div class="front-fluted-slats"></div>
-          <div class="front-led-mirror">
-            <strong>PIXELPLAY</strong>
-            <div class="mirror-duo-cards">
-              <img src="images/photocard1.png" alt="Card 1">
-              <img src="images/photocard2.png" alt="Card 2">
+            <!-- Sorot Lampu Kamera -->
+            <div class="inner-flash-beam"></div>
+
+            <!-- Pengunjung Berfoto dari Samping Menghadap Kamera Kiri -->
+            <svg class="inner-guests-svg" viewBox="0 0 160 225" fill="none">
+              <!-- Karakter 1 -->
+              <g transform="translate(14, 14)">
+                <circle cx="55" cy="48" r="19" fill="#FADCD2" stroke="#1E221F" stroke-width="2.5"/>
+                <path d="M40 34C45 24 68 25 74 38C78 46 75 56 68 58C68 48 58 40 40 34Z" fill="#1E221F"/>
+                <circle cx="43" cy="46" r="2" fill="#1E221F"/>
+                <path d="M37 54Q42 57 46 54" stroke="#1E221F" stroke-width="2" stroke-linecap="round"/>
+                <path d="M38 68C38 68 68 68 72 95L76 165H34L38 68Z" fill="#D8E8D5" stroke="#1E221F" stroke-width="2.5"/>
+                <path d="M42 84L14 70L8 56M14 70L18 54" stroke="#1E221F" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+              </g>
+              <!-- Karakter 2 -->
+              <g transform="translate(40, 28)">
+                <path d="M45 28C62 26 78 38 78 58C78 72 68 80 58 80" fill="#1E221F"/>
+                <path d="M36 45C36 34 45 28 56 28C67 28 74 36 74 48C74 60 65 68 54 68C44 68 36 60 36 48Z" fill="#FADCD2" stroke="#1E221F" stroke-width="2.5"/>
+                <path d="M36 42C42 32 58 32 64 42" fill="#1E221F"/>
+                <circle cx="44" cy="48" r="2.2" fill="#1E221F"/>
+                <circle cx="49" cy="54" r="3.5" fill="#F29C8B" opacity="0.6"/>
+                <path d="M37 56Q42 59 46 56" stroke="#1E221F" stroke-width="2" stroke-linecap="round"/>
+                <path d="M40 69C58 69 74 78 76 112L78 140H34L40 69Z" fill="#F9EBC2" stroke="#1E221F" stroke-width="2.5"/>
+                <path d="M36 140H76L80 198H40L36 140Z" fill="#2B302C" stroke="#1E221F" stroke-width="2.5"/>
+                <path d="M48 86L18 92L8 84" stroke="#FADCD2" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M48 86L18 92L8 84" stroke="#1E221F" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </g>
+            </svg>
+          </div>
+
+          <!-- Lantai Kayu Dalam Kabin -->
+          <div class="cabin-inner-floor"></div>
+
+          <!-- Dinding Depan Kayu Miring Diagonal + Fluted Slats + Cermin LED + Dispenser -->
+          <div class="angled-wood-border"></div>
+          <div class="front-angled-wood">
+            <div class="fluted-wood-slats"></div>
+
+            <!-- Cermin / Layar Showcase Strip -->
+            <div class="front-mirror-window">
+              <span class="mirror-top-tag">PIXELPLAY</span>
+              <div class="mirror-cards-pair">
+                <img src="images/photocard1.png" alt="Strip 1">
+                <img src="images/photocard2.png" alt="Strip 2">
+              </div>
+              <span class="mirror-bottom-tag">QRIS • INSTANT PRINT</span>
             </div>
-            <small>QRIS & INSTANT PRINT</small>
-          </div>
-          <div class="front-print-box">
-            <span>TAKE PHOTO HERE</span>
-            <div class="slot-opening"></div>
-            <div class="slot-strip-out">
-              <img src="images/photocard1.png" alt="Printed Output" id="printed3dImg">
+
+            <!-- Slot Cetak Foto Keluar -->
+            <div class="front-dispenser-slot">
+              <small>AMBIL FOTO DI SINI</small>
+              <div class="slot-dark-mouth"></div>
+              <div class="dispensed-strip-card">
+                <img src="images/photocard1.png" alt="Printed Strip" id="printedHeroImg">
+              </div>
             </div>
           </div>
+
+          <!-- Tirai Lipat Kanan (Terbuka Saat Kursor Diarahkan / Diklik) -->
+          <div class="front-curtain-wrap">
+            <div class="curtain-track-rod"></div>
+            <div class="curtain-pleated-fabric"></div>
+          </div>
         </div>
 
-        <!-- 7. Karakter 3D di Dalam Kabin (Menghadap Kamera Kiri) -->
-        <div class="face-3d cabin-guests-plane-3d">
-          <svg class="cabin-guests-svg" viewBox="0 0 175 265" fill="none">
-            <!-- Bangku Stool di Dalam Kabin -->
-            <rect x="65" y="195" width="70" height="14" rx="7" fill="#F7D9CE" stroke="#1E221F" stroke-width="2.5"/>
-            <rect x="93" y="209" width="14" height="50" fill="#1E221F"/>
-            <rect x="75" y="254" width="50" height="8" rx="4" fill="#1E221F"/>
-
-            <!-- Karakter 1 (Cowok Berdiri di Belakang Menghadap Kamera Kiri) -->
-            <g>
-              <circle cx="68" cy="58" r="20" fill="#FADCD2" stroke="#1E221F" stroke-width="2.5"/>
-              <path d="M52 44C58 32 82 34 86 48C89 56 85 65 78 65C78 54 68 48 52 44Z" fill="#1E221F"/>
-              <circle cx="56" cy="56" r="2.2" fill="#1E221F"/>
-              <path d="M50 64Q55 68 60 64" stroke="#1E221F" stroke-width="2" stroke-linecap="round"/>
-              <path d="M50 78C50 78 82 78 86 110L90 195H48L50 78Z" fill="#D8E8D5" stroke="#1E221F" stroke-width="2.5"/>
-              <!-- Lengan Gaya V-Sign ke Kamera Kiri -->
-              <path d="M56 98L22 82L14 66M22 82L26 64" stroke="#1E221F" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
-            </g>
-
-            <!-- Karakter 2 (Cewek Duduk di Stool Menghadap Kamera Kiri) -->
-            <g>
-              <circle cx="105" cy="78" r="19" fill="#FADCD2" stroke="#1E221F" stroke-width="2.5"/>
-              <path d="M90 66C98 54 122 58 124 78C126 92 118 104 108 104" fill="#1E221F"/>
-              <circle cx="93" cy="76" r="2.2" fill="#1E221F"/>
-              <circle cx="98" cy="82" r="3.5" fill="#F29C8B" opacity="0.65"/>
-              <path d="M87 84Q92 87 96 84" stroke="#1E221F" stroke-width="2" stroke-linecap="round"/>
-              <path d="M88 98C108 98 124 108 126 145L128 195H84L88 98Z" fill="#F9EBC2" stroke="#1E221F" stroke-width="2.5"/>
-              <!-- Tangan Menunjuk Layar Kamera Kiri -->
-              <path d="M92 118L54 114L42 104" stroke="#1E221F" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
-            </g>
-          </svg>
-        </div>
-
-        <!-- 8. Tirai Depan & Samping 3D -->
-        <div class="face-3d curtain-front-3d">
-          <div class="curtain-rail-bar"></div>
-          <div class="curtain-drape-sheet"></div>
-        </div>
-        <div class="face-3d curtain-side-right-3d"></div>
-      </div>
-
-      <!-- Toolbar Sudut Pandang Kamera 3D -->
-      <div class="booth-3d-toolbar">
-        <button class="angle-btn active" data-rx="-10" data-ry="-28" type="button">Sudut 3D</button>
-        <button class="angle-btn" data-rx="-6" data-ry="0" type="button">Tampak Depan</button>
-        <button class="angle-btn" data-rx="-12" data-ry="-48" type="button">Intip Samping Dalam</button>
-        <button class="angle-btn" id="toggleCurtainToolbarBtn" type="button">Buka/Tutup Tirai</button>
+        <!-- 3. Alas Bawah Melengkung -->
+        <div class="unit-bottom-base"></div>
       </div>
     </div>
   </section>
@@ -1317,47 +1203,40 @@
     </div>
   </div>
 
-  <!-- =================================================================
-       5 SKENARIO ANIMASI ALUR INTERAKTIF (SESUAI PERMINTAAN)
-       ================================================================= -->
+  <!-- 5 SKENARIO ANIMASI ALUR INTERAKTIF -->
   <section class="tuku-journey-section" id="alur">
     <div class="section">
       <div class="section-header">
-        <h2>Simulasi Alur Pengunjung dari Masuk Hingga Pegang Foto</h2>
-        <p>Klik masing-masing tahap di bawah untuk melihat animasi nyata setiap proses di lapangan.</p>
+        <h2>Alur Pengunjung dari Datang Hingga Cetak Foto</h2>
+        <p>Klik setiap tahapan di bawah untuk melihat proses yang dilalui tamu di photobooth Anda.</p>
       </div>
 
       <div class="theater-box">
         <div class="theater-topbar">
-          <span class="theater-step-badge" id="theaterBadge">TAHAP 1 DARI 5</span>
-          <span class="theater-status-text" id="theaterTitle">Pintu Studio Terbuka & Pengunjung Datang</span>
+          <span class="theater-step-badge" id="theaterBadge">LANGKAH 1 / 5</span>
+          <span class="theater-status-text" id="theaterTitle">Pintu Terbuka & Pengunjung Datang</span>
         </div>
 
         <div class="theater-viewport">
-          <!-- ADEGAN 1: PINTU BENAR-BENAR TERBUKA & ORANG MASUK -->
+          <!-- ADEGAN 1: PINTU TERBUKA & TAMU MASUK -->
           <div class="scene-slide active" data-scene="0">
             <svg class="door-frame-svg" viewBox="0 0 760 340" fill="none">
-              <!-- Lantai -->
               <rect x="0" y="290" width="760" height="50" fill="#F9EBC2"/>
               <line x1="0" y1="290" x2="760" y2="290" stroke="#1E221F" stroke-width="3"/>
 
-              <!-- Kusen Pintu Masuk -->
               <rect x="220" y="40" width="140" height="250" rx="8" fill="#D8E8D5" stroke="#1E221F" stroke-width="3"/>
-              <!-- Daun Pintu Kaca Kayu yang Mengayun Terbuka -->
               <g class="studio-door-leaf">
                 <rect x="224" y="44" width="132" height="244" fill="#DEC29B" stroke="#1E221F" stroke-width="3"/>
                 <rect x="242" y="64" width="96" height="120" rx="6" fill="#FFFFFF" stroke="#1E221F" stroke-width="2.5"/>
                 <circle cx="342" cy="175" r="5" fill="#1E221F"/>
-                <text x="290" y="128" text-anchor="middle" font-family="Bricolage Grotesque" font-weight="800" font-size="13" fill="#1E221F">OPEN</text>
+                <text x="290" y="128" text-anchor="middle" font-family="Bricolage Grotesque" font-weight="800" font-size="13" fill="#1E221F">BUKA</text>
               </g>
 
-              <!-- Miniatur Photobox Menunggu di Sebelah Kanan -->
               <rect x="490" y="55" width="170" height="235" rx="14" fill="#DEC29B" stroke="#1E221F" stroke-width="3"/>
               <rect x="490" y="55" width="170" height="32" rx="10" fill="#FFFFFF" stroke="#1E221F" stroke-width="2.5"/>
               <text x="575" y="76" text-anchor="middle" font-family="Bricolage Grotesque" font-weight="800" font-size="12" fill="#1E221F">PHOTOBOOTH</text>
-              <rect x="575" y="87" width="85" height="203" fill="#6E3838" stroke="#1E221F" stroke-width="2.5"/>
+              <rect x="575" y="87" width="85" height="203" fill="#6B4235" stroke="#1E221F" stroke-width="2.5"/>
 
-              <!-- Karakter Pengunjung Melangkah Masuk Lewat Pintu -->
               <g class="walking-guest-step1">
                 <circle cx="210" cy="145" r="22" fill="#FADCD2" stroke="#1E221F" stroke-width="2.8"/>
                 <path d="M190 136C196 118 226 118 232 138" fill="#1E221F"/>
@@ -1366,29 +1245,25 @@
                 <path d="M190 168C190 168 232 168 236 235H186L190 168Z" fill="#F9EBC2" stroke="#1E221F" stroke-width="2.8"/>
                 <line x1="202" y1="235" x2="194" y2="290" stroke="#1E221F" stroke-width="4" stroke-linecap="round"/>
                 <line x1="222" y1="235" x2="232" y2="290" stroke="#1E221F" stroke-width="4" stroke-linecap="round"/>
-                <!-- Balon Sapaan -->
                 <rect x="145" y="82" width="145" height="32" rx="16" fill="#1E221F"/>
-                <text x="217" y="102" text-anchor="middle" font-family="Bricolage Grotesque" font-weight="700" font-size="11" fill="#FFFFFF">Pintu buka, yuk masuk!</text>
+                <text x="217" y="102" text-anchor="middle" font-family="Bricolage Grotesque" font-weight="700" font-size="11" fill="#FFFFFF">Yuk masuk foto dulu!</text>
               </g>
             </svg>
           </div>
 
-          <!-- ADEGAN 2: TIRAI DISIBAK & ORANG BENAR-BENAR MASUK KE KABIN -->
+          <!-- ADEGAN 2: TIRAI TERBUKA & MASUK KABIN -->
           <div class="scene-slide" data-scene="1">
             <svg class="door-frame-svg" viewBox="0 0 760 340" fill="none">
               <rect x="0" y="290" width="760" height="50" fill="#F9EBC2"/>
               <line x1="0" y1="290" x2="760" y2="290" stroke="#1E221F" stroke-width="3"/>
 
-              <!-- Kabin Photobox Terbuka -->
               <rect x="240" y="35" width="300" height="255" rx="16" fill="#EAD4B4" stroke="#1E221F" stroke-width="3"/>
               <rect x="240" y="35" width="300" height="36" rx="12" fill="#FFFFFF" stroke="#1E221F" stroke-width="3"/>
-              <text x="390" y="58" text-anchor="middle" font-family="Bricolage Grotesque" font-weight="800" font-size="14" fill="#1E221F">KABIN PIXELPLAY</text>
+              <text x="390" y="58" text-anchor="middle" font-family="Bricolage Grotesque" font-weight="800" font-size="14" fill="#1E221F">PHOTOBOOTH</text>
 
-              <!-- Bangku Stool Dalam Kabin -->
               <rect x="425" y="235" width="65" height="14" rx="7" fill="#F7D9CE" stroke="#1E221F" stroke-width="2.5"/>
               <rect x="452" y="249" width="12" height="41" fill="#1E221F"/>
 
-              <!-- Karakter Melangkah Masuk ke Dalam Kabin -->
               <g class="guest-entering-cabin">
                 <circle cx="345" cy="142" r="22" fill="#FADCD2" stroke="#1E221F" stroke-width="2.8"/>
                 <path d="M325 132C332 114 360 114 367 134" fill="#1E221F"/>
@@ -1398,49 +1273,42 @@
                 <line x1="356" y1="235" x2="364" y2="290" stroke="#1E221F" stroke-width="4" stroke-linecap="round"/>
               </g>
 
-              <!-- Tirai Bergeser Membuka Jalan Masuk -->
               <g class="curtain-slide-actor">
-                <rect x="330" y="71" width="205" height="219" fill="#6E3838" stroke="#1E221F" stroke-width="3"/>
-                <line x1="365" y1="71" x2="365" y2="290" stroke="#4F2525" stroke-width="6"/>
-                <line x1="405" y1="71" x2="405" y2="290" stroke="#4F2525" stroke-width="6"/>
-                <line x1="445" y1="71" x2="445" y2="290" stroke="#4F2525" stroke-width="6"/>
-                <line x1="485" y1="71" x2="485" y2="290" stroke="#4F2525" stroke-width="6"/>
+                <rect x="330" y="71" width="205" height="219" fill="#6B4235" stroke="#1E221F" stroke-width="3"/>
+                <line x1="365" y1="71" x2="365" y2="290" stroke="#4E2E24" stroke-width="6"/>
+                <line x1="405" y1="71" x2="405" y2="290" stroke="#4E2E24" stroke-width="6"/>
+                <line x1="445" y1="71" x2="445" y2="290" stroke="#4E2E24" stroke-width="6"/>
+                <line x1="485" y1="71" x2="485" y2="290" stroke="#4E2E24" stroke-width="6"/>
               </g>
             </svg>
           </div>
 
-          <!-- ADEGAN 3: PILIH FRAME & ANIMASI KELUAR QR CODE QRIS + SCAN HP -->
+          <!-- ADEGAN 3: PILIH FRAME & QRIS MUNCUL -->
           <div class="scene-slide" data-scene="2">
             <svg class="door-frame-svg" viewBox="0 0 760 340" fill="none">
               <rect x="0" y="290" width="760" height="50" fill="#F9EBC2"/>
               <line x1="0" y1="290" x2="760" y2="290" stroke="#1E221F" stroke-width="3"/>
 
-              <!-- Layar Touchscreen Besar di Dalam Booth -->
               <rect x="170" y="40" width="270" height="210" rx="18" fill="#1E221F" stroke="#1E221F" stroke-width="3"/>
               <rect x="184" y="54" width="242" height="182" rx="12" fill="#FAF6F0"/>
               <text x="305" y="78" text-anchor="middle" font-family="Bricolage Grotesque" font-weight="800" font-size="13" fill="#1E221F">PILIH FRAME & SCAN QRIS</text>
 
-              <!-- Pilihan 2 Template Frame di Layar -->
               <rect x="202" y="92" width="48" height="110" rx="6" fill="#D8E8D5" stroke="#1E221F" stroke-width="2"/>
               <rect x="258" y="92" width="48" height="110" rx="6" fill="#F9EBC2" stroke="#1E221F" stroke-width="2"/>
 
-              <!-- POPUP QR CODE QRIS YANG MUNCUL OTOMATIS -->
               <g class="qris-popup-modal">
                 <rect x="316" y="88" width="96" height="122" rx="10" fill="#FFFFFF" stroke="#1E221F" stroke-width="2.5"/>
-                <text x="364" y="106" text-anchor="middle" font-family="Bricolage Grotesque" font-weight="800" font-size="10" fill="#D95D43">QRIS PIXELPLAY</text>
-                <!-- Kotak Pola Matrix QR Code Jelas -->
+                <text x="364" y="106" text-anchor="middle" font-family="Bricolage Grotesque" font-weight="800" font-size="10" fill="#D95D43">QRIS OTOMATIS</text>
                 <rect x="332" y="114" width="64" height="64" fill="#FFFFFF" stroke="#1E221F" stroke-width="2"/>
                 <rect x="338" y="120" width="16" height="16" stroke="#1E221F" stroke-width="3"/>
                 <rect x="374" y="120" width="16" height="16" stroke="#1E221F" stroke-width="3"/>
                 <rect x="338" y="156" width="16" height="16" stroke="#1E221F" stroke-width="3"/>
                 <rect x="358" y="138" width="12" height="12" fill="#1E221F"/>
                 <rect x="376" y="156" width="12" height="12" fill="#1E221F"/>
-                <!-- Garis Laser Scan Bergerak -->
                 <line class="laser-scan-line" x1="330" y1="122" x2="398" y2="122" stroke="#2B6E44" stroke-width="3"/>
                 <text x="364" y="196" text-anchor="middle" font-family="DM Sans" font-weight="700" font-size="9" fill="#2B6E44">Rp 35.000</text>
               </g>
 
-              <!-- Tangan Pengunjung Memegang Smartphone Menyecan QRIS -->
               <g>
                 <rect x="475" y="110" width="58" height="105" rx="10" fill="#2B302C" stroke="#1E221F" stroke-width="2.5"/>
                 <rect x="481" y="120" width="46" height="82" rx="6" fill="#D8E8D5"/>
@@ -1448,28 +1316,24 @@
                 <path d="M515 185L575 245" stroke="#1E221F" stroke-width="3" stroke-linecap="round"/>
               </g>
 
-              <!-- Badge Pembayaran Berhasil -->
               <g class="paid-badge-pop">
                 <rect x="455" y="55" width="165" height="36" rx="18" fill="#2B6E44" stroke="#1E221F" stroke-width="2"/>
-                <text x="537" y="78" text-anchor="middle" font-family="Bricolage Grotesque" font-weight="800" font-size="12" fill="#FFFFFF">✓ QRIS TERVERIFIKASI</text>
+                <text x="537" y="78" text-anchor="middle" font-family="Bricolage Grotesque" font-weight="800" font-size="12" fill="#FFFFFF">✓ QRIS BERHASIL</text>
               </g>
             </svg>
           </div>
 
-          <!-- ADEGAN 4: POSE BERGAYA & WAJAH TAMPIL LIVE DI LAYAR + KAMERA JELAS -->
+          <!-- ADEGAN 4: POSE DI DEPAN KAMERA & WAJAH TAMPIL DI LAYAR -->
           <div class="scene-slide" data-scene="3">
             <svg class="door-frame-svg" viewBox="0 0 760 340" fill="none">
               <rect x="0" y="290" width="760" height="50" fill="#F9EBC2"/>
               <line x1="0" y1="290" x2="760" y2="290" stroke="#1E221F" stroke-width="3"/>
 
-              <!-- Unit Kamera DSLR + Ringlight + Monitor Live Preview yang Menampilkan Wajah Pengunjung -->
               <rect x="135" y="45" width="160" height="245" rx="14" fill="#DEC29B" stroke="#1E221F" stroke-width="3"/>
-              <!-- Ringlight & Lensa DSLR Jelas -->
               <circle cx="255" cy="115" r="32" fill="#FFFFFF" stroke="#1E221F" stroke-width="3"/>
               <circle cx="255" cy="115" r="16" fill="#1E221F"/>
               <circle cx="255" cy="115" r="8" fill="#5EEAD4"/>
 
-              <!-- Efek Kilatan Cahaya Flash Kamera -->
               <g class="camera-flash-burst">
                 <line x1="258" y1="62" x2="258" y2="42" stroke="#D95D43" stroke-width="4" stroke-linecap="round"/>
                 <line x1="305" y1="85" x2="325" y2="72" stroke="#D95D43" stroke-width="4" stroke-linecap="round"/>
@@ -1477,31 +1341,25 @@
                 <line x1="305" y1="145" x2="325" y2="158" stroke="#D95D43" stroke-width="4" stroke-linecap="round"/>
               </g>
 
-              <!-- Layar Monitor Live Preview Menampilkan Wajah Kedua Pengunjung yang Sedang Bergaya -->
               <rect x="155" y="160" width="120" height="95" rx="8" fill="#FFFFFF" stroke="#1E221F" stroke-width="2.5"/>
               <rect x="162" y="167" width="106" height="68" rx="4" fill="#F9EBC2" stroke="#1E221F" stroke-width="1.5"/>
-              <!-- Wajah Live di Dalam Monitor -->
               <circle cx="198" cy="198" r="12" fill="#FADCD2" stroke="#1E221F" stroke-width="1.8"/>
               <circle cx="232" cy="202" r="12" fill="#FADCD2" stroke="#1E221F" stroke-width="1.8"/>
               <path d="M186 232C186 216 210 216 210 232" fill="#D8E8D5" stroke="#1E221F" stroke-width="1.8"/>
               <path d="M220 232C220 218 244 218 244 232" fill="#F7D9CE" stroke="#1E221F" stroke-width="1.8"/>
-              <text x="215" y="249" text-anchor="middle" font-family="Bricolage Grotesque" font-weight="800" font-size="9" fill="#D95D43">● LIVE COUNTDOWN: 1</text>
+              <text x="215" y="249" text-anchor="middle" font-family="Bricolage Grotesque" font-weight="800" font-size="9" fill="#D95D43">● HITUNG MUNDUR: 1</text>
 
-              <!-- 2 Pengunjung Sedang Bergaya Seru Menghadap Kamera & Layar -->
               <g>
-                <!-- Karakter 1 Bergaya Peace V-Sign -->
                 <circle cx="465" cy="122" r="24" fill="#FADCD2" stroke="#1E221F" stroke-width="2.8"/>
                 <path d="M445 110C452 92 484 94 488 112" fill="#1E221F"/>
                 <circle cx="454" cy="120" r="2.5" fill="#1E221F"/>
                 <path d="M448 130Q455 135 462 130" stroke="#1E221F" stroke-width="2.2" stroke-linecap="round"/>
                 <path d="M440 148C440 148 488 148 492 235H436L440 148Z" fill="#D8E8D5" stroke="#1E221F" stroke-width="2.8"/>
-                <!-- Tangan Bergerak Pose Peace -->
                 <g class="pose-arm-anim">
                   <path d="M455 175L395 142" stroke="#FADCD2" stroke-width="12" stroke-linecap="round"/>
                   <path d="M455 175L395 142L384 122M395 142L402 120" stroke="#1E221F" stroke-width="3.2" stroke-linecap="round"/>
                 </g>
 
-                <!-- Karakter 2 Bergaya Miring Ceria -->
                 <circle cx="545" cy="136" r="22" fill="#FADCD2" stroke="#1E221F" stroke-width="2.8"/>
                 <path d="M526 124C535 106 566 110 568 134C570 150 562 162 552 162" fill="#1E221F"/>
                 <circle cx="535" cy="134" r="2.5" fill="#1E221F"/>
@@ -1511,19 +1369,17 @@
             </svg>
           </div>
 
-          <!-- ADEGAN 5: FOTO BENAR-BENAR KELUAR DARI SLOT & DIPEGANG OLEH PENGUNJUNG -->
+          <!-- ADEGAN 5: FOTO KELUAR DARI SLOT & DIPEGANG PENGUNJUNG -->
           <div class="scene-slide" data-scene="4">
             <svg class="door-frame-svg" viewBox="0 0 760 340" fill="none">
               <rect x="0" y="290" width="760" height="50" fill="#F9EBC2"/>
               <line x1="0" y1="290" x2="760" y2="290" stroke="#1E221F" stroke-width="3"/>
 
-              <!-- Dinding Dispenser Luar Photobox -->
               <rect x="140" y="35" width="185" height="255" rx="14" fill="#DEC29B" stroke="#1E221F" stroke-width="3"/>
               <rect x="172" y="75" width="120" height="55" rx="8" fill="#BD996B" stroke="#1E221F" stroke-width="2.5"/>
-              <text x="232" y="96" text-anchor="middle" font-family="Bricolage Grotesque" font-weight="800" font-size="9" fill="#1E221F">PHOTO DISPENSER</text>
+              <text x="232" y="96" text-anchor="middle" font-family="Bricolage Grotesque" font-weight="800" font-size="9" fill="#1E221F">SLOT CETAK FOTO</text>
               <rect x="190" y="106" width="84" height="10" rx="5" fill="#1E221F"/>
 
-              <!-- Animasi Kertas Photo Strip Meluncur Keluar dari Lubang Slot -->
               <g class="sliding-strip-paper">
                 <rect x="208" y="112" width="48" height="118" rx="4" fill="#FFFFFF" stroke="#1E221F" stroke-width="2.5"/>
                 <rect x="214" y="120" width="36" height="26" fill="#2B6E44"/>
@@ -1532,7 +1388,6 @@
                 <text x="232" y="222" text-anchor="middle" font-family="Bricolage Grotesque" font-weight="800" font-size="7" fill="#1E221F">PARJO</text>
               </g>
 
-              <!-- Pengunjung Tersenyum Memegang Hasil Photo Strip di Tangannya -->
               <g>
                 <circle cx="470" cy="130" r="24" fill="#FADCD2" stroke="#1E221F" stroke-width="2.8"/>
                 <path d="M448 118C456 98 488 100 494 120" fill="#1E221F"/>
@@ -1540,7 +1395,6 @@
                 <path d="M456 139Q464 145 472 139" stroke="#1E221F" stroke-width="2.4" stroke-linecap="round"/>
                 <path d="M442 156C442 156 496 156 502 245H438L442 156Z" fill="#D8E8D5" stroke="#1E221F" stroke-width="2.8"/>
 
-                <!-- Lengan & Tangan Memegang Lembaran Photo Strip Hasil Cetak -->
                 <path d="M452 182L388 168" stroke="#FADCD2" stroke-width="13" stroke-linecap="round"/>
                 <path d="M452 182L388 168" stroke="#1E221F" stroke-width="3" stroke-linecap="round"/>
 
@@ -1550,12 +1404,11 @@
                   <rect x="355" y="130" width="40" height="28" fill="#F9EBC2" stroke="#1E221F" stroke-width="1.5"/>
                   <rect x="355" y="164" width="40" height="28" fill="#F9EBC2" stroke="#1E221F" stroke-width="1.5"/>
                   <text x="375" y="210" text-anchor="middle" font-family="Bricolage Grotesque" font-weight="800" font-size="8" fill="#D95D43">PARJO</text>
-                  <!-- Jari Tangan Memegang Strip -->
                   <circle cx="392" cy="168" r="7" fill="#FADCD2" stroke="#1E221F" stroke-width="2.5"/>
                 </g>
 
                 <rect x="425" y="64" width="185" height="32" rx="16" fill="#1E221F"/>
-                <text x="517" y="84" text-anchor="middle" font-family="Bricolage Grotesque" font-weight="700" font-size="11" fill="#FFFFFF">Hasil cetaknya langsung di tangan!</text>
+                <text x="517" y="84" text-anchor="middle" font-family="Bricolage Grotesque" font-weight="700" font-size="11" fill="#FFFFFF">Foto langsung tercetak & siap dibawa!</text>
               </g>
             </svg>
           </div>
@@ -1567,11 +1420,11 @@
         <button class="j-tab active" data-idx="0" type="button">
           <span class="j-num">1</span>
           <h3>Masuk Pintu</h3>
-          <p>Pintu terbuka menyambut tamu menuju unit photobox.</p>
+          <p>Pintu terbuka menyambut tamu menuju unit photobooth.</p>
         </button>
         <button class="j-tab" data-idx="1" type="button">
           <span class="j-num">2</span>
-          <h3>Buka Tirai & Masuk</h3>
+          <h3>Masuk Tirai</h3>
           <p>Tirai bergeser terbuka dan tamu masuk ke dalam kabin.</p>
         </button>
         <button class="j-tab" data-idx="2" type="button">
@@ -1581,12 +1434,12 @@
         </button>
         <button class="j-tab" data-idx="3" type="button">
           <span class="j-num">4</span>
-          <h3>Pose ke Layar & Kamera</h3>
-          <p>Bergaya di depan lensa dengan wajah tampil live di layar.</p>
+          <h3>Pose & Foto</h3>
+          <p>Bergaya di depan lensa dengan wajah tampil langsung di layar.</p>
         </button>
         <button class="j-tab" data-idx="4" type="button">
           <span class="j-num">5</span>
-          <h3>Foto Keluar & Dipegang</h3>
+          <h3>Foto Keluar</h3>
           <p>Strip meluncur keluar dari slot dan langsung dipegang tamu.</p>
         </button>
       </div>
@@ -1684,92 +1537,77 @@
 
   <!-- CTA -->
   <section class="cta" id="kontak">
-    <h2>Siap Bikin Photobox Anda Lebih Ramai & Otomatis?</h2>
+    <h2>Siap Bikin Photobooth Anda Lebih Ramai & Otomatis?</h2>
     <a class="btn" href="mailto:hello@teknalogi.id">
       <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
         <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
         <polyline points="22,6 12,13 2,6"/>
       </svg>
-      Jadwalkan Demo Bersama Teknalogi
+      Hubungi Kami
     </a>
   </section>
 </main>
 
 <footer class="footer">
+  <img src="images/logo-pixelplay-DEQy3wVM.png" alt="PixelPlay Logo">
   <span>© 2026 PixelPlay by PT Teknalogi Transformasi Digital</span>
 </footer>
 
 <script>
-  const viewport3d = document.getElementById('viewport3d');
-  const boothRig3d = document.getElementById('boothRig3d');
-  const heroToggleCurtainBtn = document.getElementById('heroToggleCurtainBtn');
-  const toggleCurtainToolbarBtn = document.getElementById('toggleCurtainToolbarBtn');
-  const angleBtns = document.querySelectorAll('.angle-btn[data-rx]');
+  const boothStage = document.getElementById('boothStage');
+  const photoboothUnit = document.getElementById('photoboothUnit');
+  const heroSnapBtn = document.getElementById('heroSnapBtn');
   const flash = document.getElementById('flash');
-  const printed3dImg = document.getElementById('printed3dImg');
+  const printedHeroImg = document.getElementById('printedHeroImg');
   const progress = document.getElementById('progress');
 
-  let baseRx = -10;
-  let baseRy = -28;
   const cards = ['images/photocard1.png', 'images/photocard2.png'];
   let cardIdx = 0;
 
-  // 1. Interaksi Putar Perspektif True 3D Photobox
-  viewport3d.addEventListener('mousemove', (e) => {
-    const rect = viewport3d.getBoundingClientRect();
+  // Efek Tilt Halus Saat Kursor Mengitari Unit Photobooth
+  boothStage.addEventListener('mousemove', (e) => {
+    const rect = boothStage.getBoundingClientRect();
     const x = e.clientX - rect.left - rect.width / 2;
     const y = e.clientY - rect.top - rect.height / 2;
 
-    const rx = baseRx - (y / (rect.height / 2)) * 10;
-    const ry = baseRy + (x / (rect.width / 2)) * 22;
+    const rx = 2 - (y / (rect.height / 2)) * 6;
+    const ry = -8 + (x / (rect.width / 2)) * 10;
 
-    boothRig3d.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg)`;
+    photoboothUnit.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg)`;
   });
 
-  viewport3d.addEventListener('mouseleave', () => {
-    boothRig3d.style.transform = `rotateX(${baseRx}deg) rotateY(${baseRy}deg)`;
+  boothStage.addEventListener('mouseleave', () => {
+    photoboothUnit.style.transform = 'rotateX(2deg) rotateY(-8deg)';
   });
 
-  // Preset Tombol Sudut Kamera 3D
-  angleBtns.forEach((btn) => {
-    btn.addEventListener('click', () => {
-      angleBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      baseRx = parseFloat(btn.dataset.rx);
-      baseRy = parseFloat(btn.dataset.ry);
-      boothRig3d.style.transform = `rotateX(${baseRx}deg) rotateY(${baseRy}deg)`;
-      if (baseRy < -35) {
-        boothRig3d.classList.add('open');
-      }
-    });
-  });
-
-  function trigger3dSnap() {
-    boothRig3d.classList.add('open');
+  // Klik Photobooth atau Tombol Hero untuk Membuka Tirai & Cetak Foto
+  function triggerPhotoDemo() {
+    photoboothUnit.classList.add('open');
     setTimeout(() => {
       flash.classList.add('active');
       setTimeout(() => flash.classList.remove('active'), 130);
       cardIdx = (cardIdx + 1) % cards.length;
-      printed3dImg.src = cards[cardIdx];
-    }, 380);
+      printedHeroImg.src = cards[cardIdx];
+    }, 350);
   }
 
-  heroToggleCurtainBtn.addEventListener('click', trigger3dSnap);
-  toggleCurtainToolbarBtn.addEventListener('click', () => boothRig3d.classList.toggle('open'));
-  boothRig3d.addEventListener('click', () => boothRig3d.classList.toggle('open'));
+  heroSnapBtn.addEventListener('click', triggerPhotoDemo);
+  photoboothUnit.addEventListener('click', () => {
+    photoboothUnit.classList.toggle('open');
+  });
 
-  // 2. Kontrol 5 Skenario Animasi Alur
+  // Kontrol 5 Skenario Animasi Alur
   const jTabs = document.querySelectorAll('.j-tab');
   const sceneSlides = document.querySelectorAll('.scene-slide');
   const theaterBadge = document.getElementById('theaterBadge');
   const theaterTitle = document.getElementById('theaterTitle');
 
   const sceneTitles = [
-    'Pintu Studio Terbuka & Pengunjung Datang',
-    'Tirai Photobox Terbuka & Pengunjung Masuk ke Kabin',
-    'Pilih Desain Frame & Scan Kode QRIS Otomatis di Layar',
-    'Pose Bergaya di Depan Lensa & Wajah Tampil Live di Layar',
-    'Photo Strip Meluncur Keluar dari Slot & Dipegang Pengunjung'
+    'Pintu Terbuka & Pengunjung Datang',
+    'Tirai Terbuka & Pengunjung Masuk ke Kabin',
+    'Pilih Desain Frame & Scan Kode QRIS di Layar',
+    'Pose Bergaya di Depan Lensa & Wajah Tampil di Layar',
+    'Photo Strip Keluar dari Slot & Dipegang Pengunjung'
   ];
 
   function activateScene(idx) {
@@ -1777,11 +1615,11 @@
     sceneSlides.forEach((s, i) => {
       s.classList.remove('active');
       if (i === idx) {
-        void s.offsetWidth; // Restart CSS transition
+        void s.offsetWidth;
         s.classList.add('active');
       }
     });
-    theaterBadge.textContent = `TAHAP ${idx + 1} DARI 5`;
+    theaterBadge.textContent = `LANGKAH ${idx + 1} / 5`;
     theaterTitle.textContent = sceneTitles[idx];
 
     if (idx === 3) {
